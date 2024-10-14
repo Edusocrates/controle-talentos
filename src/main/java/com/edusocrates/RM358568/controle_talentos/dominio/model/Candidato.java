@@ -32,7 +32,7 @@ public class Candidato {
     private Date dataNascimento;
 
     @Column(nullable = false)
-    private String curriculoUrl;  // URL do currículo do candidato
+    private String curriculoUrl;
 
     @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Entrevista> entrevistas;

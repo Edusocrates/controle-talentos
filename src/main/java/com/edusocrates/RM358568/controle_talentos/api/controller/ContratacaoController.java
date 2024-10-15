@@ -1,6 +1,7 @@
 package com.edusocrates.RM358568.controle_talentos.api.controller;
 
 import com.edusocrates.RM358568.controle_talentos.aplicacao.service.ContratacaoService;
+import com.edusocrates.RM358568.controle_talentos.dominio.DTO.ContratacaoDTO;
 import com.edusocrates.RM358568.controle_talentos.dominio.DTO.CreateContratacaoDTO;
 import com.edusocrates.RM358568.controle_talentos.dominio.model.Contratacao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class ContratacaoController {
     private ContratacaoService contratacaoService;
 
     @PostMapping
-    public ResponseEntity<Contratacao> criarContratacao(@RequestBody CreateContratacaoDTO dto) {
-        Contratacao contratacao = contratacaoService.criarContratacao(dto);
+    public ResponseEntity<ContratacaoDTO> criarContratacao(@RequestBody CreateContratacaoDTO dto) {
+        ContratacaoDTO contratacao = contratacaoService.criarContratacao(dto);
         return ResponseEntity.ok(contratacao);
     }
 

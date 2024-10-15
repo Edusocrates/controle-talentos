@@ -19,24 +19,4 @@ public class EntrevistaDTO {
     private LocalDateTime dataHora;
     private String feedback;
 
-    public EntrevistaDTO (Entrevista entrevista){
-        this.id = entrevista.getId();
-        this.candidatoId = entrevista.getCandidato().getId();
-        this.avaliador = entrevista.getAvaliador();
-        this.dataHora = entrevista.getDataHora();
-        this.feedback = entrevista.getFeedback();
-    }
-    public EntrevistaDTO (List<Entrevista> entrevistas){
-        List<EntrevistaDTO> listaEntrevistas = new ArrayList<>();
-        for (Entrevista entrevista : entrevistas)
-        {
-            this.id = entrevista.getId();
-            this.candidatoId = entrevista.getCandidato().getId();
-            this.avaliador = entrevista.getAvaliador();
-            this.dataHora = entrevista.getDataHora();
-            this.feedback = entrevista.getFeedback();
-        }
-
-
-    }
 }

@@ -1,6 +1,8 @@
 package com.edusocrates.RM358568.controle_talentos.aplicacao.service.impl;
 
+import com.edusocrates.RM358568.controle_talentos.aplicacao.mapper.ContratacaoMapper;
 import com.edusocrates.RM358568.controle_talentos.aplicacao.service.ContratacaoService;
+import com.edusocrates.RM358568.controle_talentos.dominio.DTO.ContratacaoDTO;
 import com.edusocrates.RM358568.controle_talentos.dominio.DTO.CreateContratacaoDTO;
 import com.edusocrates.RM358568.controle_talentos.dominio.model.Candidato;
 import com.edusocrates.RM358568.controle_talentos.dominio.model.Contratacao;
@@ -22,7 +24,7 @@ public class ContratacaoServiceImpl implements ContratacaoService {
 
 
     @Override
-    public Contratacao criarContratacao(CreateContratacaoDTO dto) {
+    public ContratacaoDTO criarContratacao(CreateContratacaoDTO dto) {
         Candidato candidato = candidatoRepository.findById(dto.candidatoId())
                 .orElseThrow(() -> new IllegalArgumentException("Candidato não encontrado"));
 
@@ -30,6 +32,8 @@ public class ContratacaoServiceImpl implements ContratacaoService {
         contratacao.setCandidato(candidato);
         contratacao.setStatus(StatusContratacao.valueOf(dto.status()));
 
-        return contratacaoRepository.save(contratacao);
+        var novaContratacao = contratacaoRepository.save(contratacao);
+
+        return ContratacaoMapper.mapToDTO(novaContratacao);
     }
 }

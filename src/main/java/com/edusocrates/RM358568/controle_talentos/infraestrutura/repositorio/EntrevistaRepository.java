@@ -12,4 +12,6 @@ public interface EntrevistaRepository extends JpaRepository<Entrevista, Long> {
 
     List<Entrevista> findByDataHoraBetween(LocalDateTime start, LocalDateTime end);
 
+    List<Entrevista> findByCandidatoId(Long candidatoId);
+
 }

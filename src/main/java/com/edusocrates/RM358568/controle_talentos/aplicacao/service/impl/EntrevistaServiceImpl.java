@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EntrevistaServiceImpl implements EntrevistaService {
@@ -54,6 +55,14 @@ public class EntrevistaServiceImpl implements EntrevistaService {
         var entrevistaAtualizada = entrevistaRepository.save(entrevista);
 
         return EntrevistaMapper.mapToEntrevistaDTO(entrevistaAtualizada);
+    }
+
+    @Override
+    public List<EntrevistaDTO> getEntrevistasByCandidatoId(Long candidatoId) {
+        List<Entrevista> entrevistas = entrevistaRepository.findByCandidatoId(candidatoId);
+        return entrevistas.stream()
+                .map(EntrevistaMapper::mapToEntrevistaDTO)
+                .collect(Collectors.toList());
     }
 
 

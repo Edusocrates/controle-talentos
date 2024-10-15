@@ -13,4 +13,6 @@ public interface EntrevistaService {
     List<EntrevistaDTO> consultarEntrevistasPorData(LocalDateTime dataInicio, LocalDateTime dataFim);
 
     EntrevistaDTO fornecerFeedback(Long entrevistaId, String feedback);
+
+    List<EntrevistaDTO> getEntrevistasByCandidatoId(Long candidatoId);
 }

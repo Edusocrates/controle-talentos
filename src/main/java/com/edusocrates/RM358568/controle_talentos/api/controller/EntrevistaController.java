@@ -37,4 +37,13 @@ public class EntrevistaController {
         EntrevistaDTO entrevista = entrevistaService.fornecerFeedback(dto.entrevistaId(), dto.feedback());
         return ResponseEntity.ok(entrevista);
     }
+
+    @GetMapping("/candidato/{candidatoId}")
+    public ResponseEntity<List<EntrevistaDTO>> getEntrevistasByCandidatoId(@PathVariable Long candidatoId) {
+        List<EntrevistaDTO> entrevistas = entrevistaService.getEntrevistasByCandidatoId(candidatoId);
+        if (entrevistas.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(entrevistas);
+    }
 }

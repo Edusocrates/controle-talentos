@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "candidatos")
+@Table(name = "candidato")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -27,13 +27,12 @@ public class Candidato {
     @Column(nullable = false)
     private String telefone;
 
-    @Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    private Date dataNascimento;
-
-    @Column(nullable = false)
-    private String curriculoUrl;
+    private String curriculoUrl;  // URL do currículo
 
     @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Entrevista> entrevistas;
+
+    @OneToOne(mappedBy = "candidato", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Contratacao contratacao;
 }

@@ -1,36 +1,28 @@
 package com.edusocrates.RM358568.controle_talentos.dominio.model;
 
+import com.edusocrates.RM358568.controle_talentos.dominio.model.enums.StatusContratacao;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
-@Table(name = "entrevista")
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-public class Entrevista {
+@AllArgsConstructor
+public class Contratacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "candidato_id", nullable = false)
     private Candidato candidato;
 
     @Column(nullable = false)
-    private LocalDateTime dataHora;
+    @Enumerated(EnumType.STRING)
+    private StatusContratacao status;
 
-    @Column(nullable = false)
-    private String avaliador;
 
-    @Column(columnDefinition = "TEXT")
-    private String feedback;
 }

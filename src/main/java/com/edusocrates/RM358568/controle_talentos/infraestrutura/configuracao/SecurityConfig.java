@@ -4,8 +4,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -15,27 +18,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/h2-console/**").permitAll()
-                        .anyRequest().authenticated()
+                .csrf(AbstractHttpConfigurer::disable) // Desabilitando CSRF com a nova sintaxe
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll()  // Permite todas as requisições
                 )
-                .formLogin((form) -> form
-                        .loginPage("/login")
-                        .permitAll()
-                )
-                .logout(LogoutConfigurer::permitAll);
-
-        // Desabilitar o CSRF somente para o H2 console
-        http
-                .csrf((csrf) -> csrf
-                        .ignoringRequestMatchers("/h2-console/**")  // Ignora CSRF para o H2
-                );
-
-        // Desabilitar proteção de frames para o H2
-        http
-                .headers((headers) -> headers
-                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)
-                );
+                .httpBasic(AbstractHttpConfigurer::disable); // Desabilitando httpBasic com a nova sintaxe
 
         return http.build();
     }

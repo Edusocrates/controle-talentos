@@ -1,41 +1,40 @@
 package com.edusocrates.RM358568.controle_talentos.api.controller;
 
 import com.edusocrates.RM358568.controle_talentos.aplicacao.service.EntrevistaService;
+import com.edusocrates.RM358568.controle_talentos.dominio.DTO.CreateEntrevistaDTO;
+import com.edusocrates.RM358568.controle_talentos.dominio.DTO.EntrevistaDTO;
+import com.edusocrates.RM358568.controle_talentos.dominio.DTO.FeedbackDTO;
 import com.edusocrates.RM358568.controle_talentos.dominio.model.Entrevista;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/entrevistas")
+@RequestMapping("/entrevistas")
 public class EntrevistaController {
 
     @Autowired
     private EntrevistaService entrevistaService;
 
     @PostMapping
-    public ResponseEntity<Entrevista> criarEntrevista(@RequestBody Entrevista entrevista) {
-        Entrevista novaEntrevista = entrevistaService.salvarEntrevista(entrevista);
-        return ResponseEntity.ok(novaEntrevista);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Entrevista>> listarEntrevistas() {
-        List<Entrevista> entrevistas = entrevistaService.listarTodasEntrevistas();
-        return ResponseEntity.ok(entrevistas);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Entrevista> buscarEntrevista(@PathVariable Long id) {
-        Entrevista entrevista = entrevistaService.buscarPorId(id);
+    public ResponseEntity<EntrevistaDTO> agendarEntrevista(@RequestBody CreateEntrevistaDTO dto) {
+        EntrevistaDTO entrevista = entrevistaService.agendarEntrevista(dto);
         return ResponseEntity.ok(entrevista);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarEntrevista(@PathVariable Long id) {
-        entrevistaService.deletarEntrevista(id);
-        return ResponseEntity.noContent().build();
+    @GetMapping("/por-data")
+    public ResponseEntity<List<EntrevistaDTO>> consultarPorData(
+            @RequestParam LocalDateTime inicio, @RequestParam LocalDateTime fim) {
+        List<EntrevistaDTO> entrevistas = entrevistaService.consultarEntrevistasPorData(inicio, fim);
+        return ResponseEntity.ok(entrevistas);
+    }
+
+    @PostMapping("/feedback")
+    public ResponseEntity<EntrevistaDTO> fornecerFeedback(@RequestBody FeedbackDTO dto) {
+        EntrevistaDTO entrevista = entrevistaService.fornecerFeedback(dto.entrevistaId(), dto.feedback());
+        return ResponseEntity.ok(entrevista);
     }
 }

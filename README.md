@@ -47,13 +47,14 @@ Swagger UI: http://localhost:8080/swagger-ui/index.html
 src/
 ├── main/
 │   ├── java/
-│   │   └── com/seuprojeto/rh/
-│   │       ├── controller/   # Controllers
-│   │       ├── domain/       # Entidades de domínio
-│   │       ├── dto/          # Data Transfer Objects (DTOs)
-│   │       ├── mapper/       # Mappers para conversão de entidades para DTOs
-│   │       ├── repository/   # Interfaces de Repositórios
-│   │       ├── service/      # Regras de negócio (Camada de Serviço)
+│   │   └── com/edusocrates/RM358568/controle_talentos
+│   │       ├── api/controller/   # Controllers
+│   │       ├── dominio/model       # Entidades de domínio
+│   │       ├── dominio/dto/          # Data Transfer Objects (DTOs)
+│   │       ├── aplicacao/mapper/       # Mappers para conversão de entidades para DTOs
+│   │       ├── infratestrutura/repositorio/   # Interfaces de Repositórios
+│   │       ├── infratestrutura/configuracao/   # Gerenciamento de Configurações
+│   │       ├── aplicacao/service/      # Regras de negócio (Camada de Serviço)
 │   └── resources/
 │       ├── application.properties   # Configurações da aplicação
 │       └── db/migration/            # Scripts de migração Flyway

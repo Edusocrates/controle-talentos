@@ -2,6 +2,7 @@ package com.edusocrates.RM358568.controle_talentos.aplicacao.service.impl;
 
 import com.edusocrates.RM358568.controle_talentos.aplicacao.mapper.VagaMapper;
 import com.edusocrates.RM358568.controle_talentos.aplicacao.service.VagaService;
+import com.edusocrates.RM358568.controle_talentos.dominio.DTO.CreateVagaDTO;
 import com.edusocrates.RM358568.controle_talentos.dominio.DTO.UpdateVagaStatusDTO;
 import com.edusocrates.RM358568.controle_talentos.dominio.DTO.VagaDTO;
 import com.edusocrates.RM358568.controle_talentos.dominio.model.Vaga;
@@ -41,5 +42,23 @@ public class VagaServiceImpl implements VagaService {
     public List<VagaDTO> buscarVagasPorTitulo(String titulo) {
         List<Vaga> vagas = vagaRepository.findByTituloContainingIgnoreCase(titulo);
         return VagaMapper.toDTOList(vagas);
+    }
+
+    @Override
+    @Transactional
+    public VagaDTO criarVaga(CreateVagaDTO createVagaDTO) {
+        Vaga vaga = VagaMapper.toEntity(createVagaDTO);
+        Vaga vagaSalva = vagaRepository.save(vaga);
+        return VagaMapper.toDTO(vagaSalva);
+    }
+
+    @Override
+    public void removerVaga(Long vagaId) {
+        Vaga vaga = vagaRepository.findById(vagaId)
+                .orElseThrow(() -> new RuntimeException("Vaga não encontrada!"));
+
+        if(vaga != null){
+            vagaRepository.deleteById(vagaId);
+        }
     }
 }

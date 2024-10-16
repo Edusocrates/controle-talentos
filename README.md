@@ -25,6 +25,22 @@ Este sistema de RH foi desenvolvido para gerenciar o processo de recrutamento e 
 - **Lombok** (Redução de Boilerplate no Código)
 - **Swagger** (Documentação de APIs)
 
+
+
+## Configuração do Banco de Dados
+O projeto está configurado para usar o banco de dados em memória H2 durante o desenvolvimento. A migração de dados é gerenciada pelo Flyway, com scripts localizados em src/main/resources/db/migration/.
+
+## Script de Migração (Flyway)
+Os scripts para criar as tabelas e relacionamentos estão no formato SQL e são automaticamente aplicados no startup da aplicação.
+
+## Inserção de Dados Iniciais
+Após a criação das tabelas, alguns dados iniciais são inseridos automaticamente no banco de dados para facilitar o desenvolvimento e os testes.
+
+## Documentação das APIs
+A documentação das APIs pode ser acessada através da interface do Swagger.
+
+Swagger UI: http://localhost:8080/swagger-ui/index.html
+
 ## Estrutura do Projeto
 
 ```bash
@@ -42,4 +58,3 @@ src/
 │       ├── application.properties   # Configurações da aplicação
 │       └── db/migration/            # Scripts de migração Flyway
 
-teste

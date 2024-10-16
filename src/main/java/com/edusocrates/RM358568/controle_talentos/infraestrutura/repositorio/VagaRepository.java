@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface VagaRepository extends JpaRepository<Vaga, Long> {
     List<Vaga> findByStatus(StatusVaga status);
+
+    List<Vaga> findByTituloContainingIgnoreCase(String titulo);
 }
